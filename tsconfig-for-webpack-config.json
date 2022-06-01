@@ -1,0 +1,9 @@
+// webpack.config.ts를 webpack에서 인식을 위한 코드
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "Node",
+    "target": "es5",
+    "esModuleInterop": true
+  }
+}
