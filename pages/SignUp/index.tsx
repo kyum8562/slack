@@ -1,10 +1,15 @@
 import useInput from '@hooks/useInput';
+import fetcher from '@utils/fetcher';
 import axios from 'axios';
 import React, { useCallback, useState, VFC } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import useSWR from 'swr';
 import { Form, Label, Input, LinkContainer, Button, Header, Error, Success } from './styles';
 
-const SignUp = () => { // setEmail, setNickname
+const SignUp = () => {
+  // useSWR : 전역 스토리지(상태관리)
+  const {data, error, mutate} = useSWR('http://localhost:3095/api/users', fetcher);
+
   const [email, onChangeEmail] = useInput('');
   const [nickname, onChangeNickname] = useInput('');
   const [password, setPassword] = useState('');
@@ -57,6 +62,15 @@ const SignUp = () => { // setEmail, setNickname
     }
   }, [email, nickname, password, passwordCheck, missMatchError]);
 
+  // // data가 false인 경우를 피하기 위해 undefined
+  // if (data === undefined) {
+  //   return <div>로딩중...</div>;
+  // }
+
+  // 데이터가 있다면 채널로 이동
+  if(data){
+    return <Redirect to ="/workspace/channel" />;
+  }
   return (
     <div id="container">
       <Header>slack</Header>

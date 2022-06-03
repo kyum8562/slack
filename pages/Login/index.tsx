@@ -1,13 +1,16 @@
 import useInput from '@hooks/useInput';
+import fetcher from '@utils/fetcher';
 import { Form, Error, Label, Input, LinkContainer, Button, Header } from '@pages/SignUp/styles';
-// import fetcher from '@utils/fetcher';
 import axios from 'axios';
 import React, { useCallback, useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-// import useSWR from 'swr';
+import useSWR from 'swr';
 
 const LogIn = () => {
-  // const { data, error, revalidate, mutate } = useSWR('/api/users', fetcher);
+  // SWR이 컴포넌트를 넘나들면서 전역 스토리지가 된다.
+  const {data, error, mutate} = useSWR('http://localhost:3095/api/users', fetcher
+  // ,{dedupingInterval: 100000, // 캐시의 유지기간을 설정
+  ); // useSWR: 로그인 후에 서버 -> 프론트로 데이터를 전해줄 API
   const [logInError, setLogInError] = useState(false);
   const [email, onChangeEmail] = useInput('');
   const [password, onChangePassword] = useInput('');
@@ -19,8 +22,10 @@ const LogIn = () => {
         .post(
           '/api/users/login',
           { email, password },
+          {withCredentials: true,}
         )
         .then((response) => {
+          mutate(response.data, false); //  & useSWR이 다시 실행되면서 data에 '내 정보(데이터)'를 넣어줌
         })
         .catch((error) => {
           setLogInError(error.response?.data?.statusCode === 401);
@@ -29,13 +34,15 @@ const LogIn = () => {
     [email, password],
   );
 
-  // if (data === undefined) {
-  //   return <div>로딩중...</div>;
-  // }
+  // data가 false인 경우를 피하기 위해 undefined
+  if (data === undefined) {
+    return <div>로딩중...</div>;
+  }
 
-  // if (data) {
-  //   return <Redirect to="/workspace/sleact/channel/일반" />;
-  // }
+  // 로그인이 성공하면 Channel로 가게 된다.(리렌더링)
+  if(data){
+    return <Redirect to ="/workspace/channel" />;
+  }
 
   // console.log(error, userData);
   // if (!error && userData) {
