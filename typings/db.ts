@@ -1,3 +1,4 @@
+// 백엔드로 데이터의 타입을 받음
 export interface IUser {
   id: number;
   nickname: string;

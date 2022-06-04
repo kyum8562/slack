@@ -69,7 +69,7 @@ const SignUp = () => {
 
   // 데이터가 있다면 채널로 이동
   if(data){
-    return <Redirect to ="/workspace/channel" />;
+    return <Redirect to ="/workspace/sleact/channel/일반" />;
   }
   return (
     <div id="container">

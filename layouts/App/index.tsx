@@ -14,7 +14,9 @@ const App = () => {
       <Redirect exact path='/' to ="/login" />
       <Route path="/login"><LogIn /></Route>
       <Route path="/signup"><SignUp /></Route>
-      <Route path="/workspace"><Workspace /></Route>
+      <Route path="/workspace/:workspace"><Workspace /></Route>
+      {/* (:) 라우트 파라미터(와일드카드) 역할 : /workspace/test 처럼 입력이 된다. 
+          와일드 카드는 같은 주소를 가지면 반드시 아래에 기술해야 한다.*/}
     </Switch>
   );
 };

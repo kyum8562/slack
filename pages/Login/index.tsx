@@ -41,7 +41,7 @@ const LogIn = () => {
 
   // 로그인이 성공하면 Channel로 가게 된다.(리렌더링)
   if(data){
-    return <Redirect to ="/workspace/channel" />;
+    return <Redirect to ="/workspace/sleact/channel/일반" />;
   }
 
   // console.log(error, userData);
