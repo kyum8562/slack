@@ -8,7 +8,7 @@ import useSWR from 'swr';
 
 const LogIn = () => {
   // SWR이 컴포넌트를 넘나들면서 전역 스토리지가 된다.
-  const {data, error, mutate} = useSWR('http://localhost:3095/api/users', fetcher
+  const {data, error, mutate} = useSWR('/api/users', fetcher
   // ,{dedupingInterval: 100000, // 캐시의 유지기간을 설정
   ); // useSWR: 로그인 후에 서버 -> 프론트로 데이터를 전해줄 API
   const [logInError, setLogInError] = useState(false);

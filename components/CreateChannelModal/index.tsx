@@ -21,7 +21,7 @@ const CreateChannelModal: VFC<Props> = ({show, onCloseModal, setShowCreateChanne
   // 주소 자체에 데이터를 가지고 있게 되므로 매우 편하다(필수)
   const { workspace, channel} = useParams<{workspace: string, channel: string}>();
   const {data: userData, error, mutate} = useSWR<IUser | false>(
-    'http://localhost:3095/api/users', 
+    '/api/users', 
     fetcher,
     {
       dedupingInterval: 2000,
@@ -29,13 +29,13 @@ const CreateChannelModal: VFC<Props> = ({show, onCloseModal, setShowCreateChanne
     );
 
   const {data: channelData, mutate: mutateChannel} = useSWR<IChannel[]>(
-    userData ? `http://localhost:3095/api/workspaces/${workspace}/channels` : null, 
+    userData ? `/api/workspaces/${workspace}/channels` : null, 
     fetcher,
   );
 
   const onCreatechannel = useCallback((e) => {
     e.preventDefault();
-    axios.post(`http://localhost:3095/api/workspaces/${workspace}/channels`, 
+    axios.post(`/api/workspaces/${workspace}/channels`, 
       { // 서버는 새롭게 생성할 채널의 '이름'을 알게 됨
         name: newChannel,
       }, 

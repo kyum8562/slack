@@ -2,7 +2,7 @@ import loadable from '@loadable/component';
 import React from 'react';
 import {Switch, Route, Redirect} from 'react-router-dom';
 
-// 페이지별로 Code Spliting
+// 페이지별로 (lodable로) Code Spliting
 const LogIn = loadable(() => import('@pages/Login'));
 const SignUp = loadable(() => import('@pages/SignUp'));
 const Workspace = loadable(() => import('@layouts/Workspace'));

@@ -8,7 +8,7 @@ import { Form, Label, Input, LinkContainer, Button, Header, Error, Success } fro
 
 const SignUp = () => {
   // useSWR : 전역 스토리지(상태관리)
-  const {data, error, mutate} = useSWR('http://localhost:3095/api/users', fetcher);
+  const {data, error, mutate} = useSWR('/api/users', fetcher);
 
   const [email, onChangeEmail] = useInput('');
   const [nickname, onChangeNickname] = useInput('');
